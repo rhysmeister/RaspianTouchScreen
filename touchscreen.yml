@@ -1,0 +1,43 @@
+---
+  - hosts: all
+    gather_facts: yes
+    become: yes
+    vars:
+      required_packages:
+        - build-essential
+        - binutils
+        - make
+        - csh
+        - g++
+        - sed
+        - gawk
+        - autoconf
+        - automake
+        - autotools-dev
+        - libx11-dev
+        - libxext-dev
+        - libxi-dev
+        - x11proto-input-dev
+
+    tasks:
+
+    - name: Ensure required_packages are installed
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ required_packages }}"
+
+    - name: Ensure packages for gui are installed
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - lxde
+        - lxde-core
+        - lxterminal
+        - lxappearance
+        - lightdm
+        - xinit
+        - raspberrypi-ui-mods
+        - matchbox-keyboard
